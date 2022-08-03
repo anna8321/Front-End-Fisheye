@@ -18,7 +18,6 @@
 //   console.log(photographerHeader);
 // }
 
-
 // photographerDisplay();
 // (async function (params) {
 //   const photographerId = getPhotographerId();
@@ -28,15 +27,14 @@
 //   hydratePhotographer(photographer);
 // })()
 
-// request photographers from json file
+// request photographers and medias from json file
 async function getPhotographers() {
   let response = await fetch(`data/photographers.json`)
   if (response.ok) {
     // waiting for json to be converted into object and keeping it in data variable
     let data = await response.json()
     // return json data specific array
-    console.log(data);
-    return { photographers: data.photographers};
+    return { photographers: data.photographers, medias: data.media };
   } else {
     console.error('Retour du serveur : ', response.status)
   }
@@ -44,12 +42,11 @@ async function getPhotographers() {
 
 // retrieve correct photographer object thanks to its id with find() method
 async function getPhotographer(id) {
-  const {photographers} = await getPhotographers();
+  const { photographers, medias } = await getPhotographers();
   const photographer = photographers.find((photographer) => photographer.id === id);
-  console.log(photographer)
-  return [photographer];
+  const photographerMedias = medias.find((media) => media.photographerId === id);
+  return [photographer, photographerMedias];
 }
-
 
 // ******** ne marche pas car append child error ********
 // function photographerDisplay(photographer) {
@@ -73,35 +70,44 @@ function photographerDisplay(photographer) {
   photographerCity.classList.add('photographer-city');
   const photographerTagline = document.createElement('span');
 
-      h1.textContent = photographerModel.name;
-      photographerCity.textContent = `${photographerModel.city}, ${photographerModel.country}`;
-      photographerTagline.textContent = photographerModel.tagline;
+  h1.textContent = photographerModel.name;
+  photographerCity.textContent = `${photographerModel.city}, ${photographerModel.country}`;
+  photographerTagline.textContent = photographerModel.tagline;
 
-      const contactBtn = document.querySelector('.contact_button');
+  const contactBtn = document.querySelector('.contact_button');
 
-      const avatar = document.createElement('div');
-      avatar.classList.add('user');
+  const avatar = document.createElement('div');
+  avatar.classList.add('user');
 
-      const img = document.createElement('img');
-      img.setAttribute("src", photographerModel.picture);
-      img.setAttribute("alt", photographerModel.name);
+  const img = document.createElement('img');
+  img.setAttribute("src", photographerModel.picture);
+  img.setAttribute("alt", photographerModel.name);
 
-      profile.appendChild(h1);
-      profile.appendChild(photographerCity);
-      profile.appendChild(photographerTagline);
-      avatar.appendChild(img);
-      photographerHeader.appendChild(profile);
-      photographerHeader.appendChild(contactBtn);
-      photographerHeader.appendChild(avatar);
+  profile.appendChild(h1);
+  profile.appendChild(photographerCity);
+  profile.appendChild(photographerTagline);
+  avatar.appendChild(img);
+  photographerHeader.appendChild(profile);
+  photographerHeader.appendChild(contactBtn);
+  photographerHeader.appendChild(avatar);
 }
 
-
+// display media's datas
+function mediaDisplay(medias) {
+  const mediaSection = document.querySelector('.mediaSection');
+  console.log(medias);
+  medias.forEach(media => {
+    const mediaModel = mediaFactory(media);
+    const mediaCardDOM = mediaModel.getMediaCardDOM();
+    console.log(mediaCardDOM);
+    mediaSection.appendChild(mediaCardDOM);
+  });
+}
 
 // take the id parameter in url
 async function getUrlId() {
   // retrieve url params
   const url_params_id = window.location.search;
-
   const paramsId = new URLSearchParams(url_params_id);
 
   // use urlsearchparams.get() method to extract id from url params
@@ -110,8 +116,10 @@ async function getUrlId() {
   // or we can use short syntax:  return new URL(location.href).searchParams.get("id");
 
   // take the valid photographer object passing the id and keeping it in a variable and displaying it
-  const [photographer] = await getPhotographer(photographerId);
+  const [photographer, photographerMedias] = await getPhotographer(photographerId);
   photographerDisplay(photographer);
+  mediaDisplay(photographerMedias);
+
 }
 
 getUrlId();
