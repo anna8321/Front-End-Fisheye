@@ -51,7 +51,7 @@ async function getPhotographer(id) {
 }
 
 
-// ******** ne marche pas car append child requiert le createelement ********
+// ******** ne marche pas car append child error ********
 // function photographerDisplay(photographer) {
 //   const photographerModel = photographerFactory(photographer);
 //   const photographerHeader = document.querySelector('.photographer_header');
@@ -60,7 +60,7 @@ async function getPhotographer(id) {
 // }
 
 
-// display photographer datas
+// display photographer's datas
 function photographerDisplay(photographer) {
   const photographerModel = photographerFactory(photographer)
   const photographerHeader = document.querySelector('.photographer_header');
@@ -97,7 +97,7 @@ function photographerDisplay(photographer) {
 
 
 
-// take the id parameter in url to
+// take the id parameter in url
 async function getUrlId() {
   // retrieve url params
   const url_params_id = window.location.search;
@@ -109,7 +109,7 @@ async function getUrlId() {
 
   // or we can use short syntax:  return new URL(location.href).searchParams.get("id");
 
-  // take the valid photographer object passing the id and keeping it in a variable and display it
+  // take the valid photographer object passing the id and keeping it in a variable and displaying it
   const [photographer] = await getPhotographer(photographerId);
   photographerDisplay(photographer);
 }
