@@ -10,22 +10,6 @@
 //     console.log(photographerData);
 //   };
 
-// display photographer data
-// const photographerDisplay = async () => {
-//   await fetchPhotographer();
-//   const photographerHeader = document.querySelector('.photographer_header')
-//   photographerHeader.innerHTML = `<article><p>${photographerData[1].id} </p></article>`
-//   console.log(photographerHeader);
-// }
-
-// photographerDisplay();
-// (async function (params) {
-//   const photographerId = getPhotographerId();
-//   console.log(photographerId);
-//   const photographer = await getPhotographer(photographerId);
-//   console.log(photographer);
-//   hydratePhotographer(photographer);
-// })()
 
 // request photographers and medias from json file
 async function getPhotographers() {
@@ -47,14 +31,6 @@ async function getPhotographer(id) {
   const photographerMedias = medias.find((media) => media.photographerId === id);
   return [photographer, photographerMedias];
 }
-
-// ******** ne marche pas car append child error ********
-// function photographerDisplay(photographer) {
-//   const photographerModel = photographerFactory(photographer);
-//   const photographerHeader = document.querySelector('.photographer_header');
-//   const photographerCardDOM = photographerModel.getPhotographerCardDOM();
-//   photographerHeader.appendChild(photographerCardDOM);
-// }
 
 
 // display photographer's datas
@@ -94,14 +70,9 @@ function photographerDisplay(photographer) {
 
 // display media's datas
 function mediaDisplay(medias) {
-  const mediaSection = document.querySelector('.mediaSection');
-  console.log(medias);
-  medias.forEach(media => {
-    const mediaModel = mediaFactory(media);
-    const mediaCardDOM = mediaModel.getMediaCardDOM();
-    console.log(mediaCardDOM);
-    mediaSection.appendChild(mediaCardDOM);
-  });
+  const mediaModel = mediaFactory(medias);
+  const mediaCardDOM = mediaModel.getMediaCardDOM();
+  return mediaCardDOM;
 }
 
 // take the id parameter in url
