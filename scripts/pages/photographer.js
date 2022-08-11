@@ -28,10 +28,8 @@ async function getPhotographers() {
 async function getPhotographer(id) {
   const { photographers, medias } = await getPhotographers();
   const photographer = photographers.find((photographer) => photographer.id === id);
-  console.log(medias)
   mediaPhotograph = medias.filter((media) => media.photographerId === id);
-  console.log(mediaPhotograph);
-  // const photographerMedias = medias.find((media) => media.photographerId === id);
+  // affiche qu'un media : const photographerMedias = medias.find((media) => media.photographerId === id);
   return [photographer, mediaPhotograph];
 }
 
@@ -92,9 +90,9 @@ async function getUrlId() {
   // or we can use short syntax:  return new URL(location.href).searchParams.get("id");
 
   // take the valid photographer object passing the id and keeping it in a variable and displaying it
-  const [photographer, photographerMedias] = await getPhotographer(photographerId);
+  const [photographer, mediaPhotograph] = await getPhotographer(photographerId);
   photographerDisplay(photographer);
-  mediaDisplay(photographerMedias);
+  mediaDisplay(mediaPhotograph);
 
 }
 

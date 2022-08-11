@@ -78,9 +78,46 @@ main {
   object-fit: cover;
 }
 
-article a img {
-  width: 50px;
-  height: 50px;
+/* media section */
+section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 70px;
+  margin-top: 100px;
+}
+
+article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border: 1px solid red;
+}
+
+article {
+  text-decoration: none;
+  color: #911C1C;
+  font-size: 22px;
+}
+
+article a {
+  height: 90%;
+}
+
+article a img, video {
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+article .media-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85%;
+  height: 10%;
 }
 
 .contact_button {
