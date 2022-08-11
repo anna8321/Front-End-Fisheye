@@ -28,8 +28,11 @@ async function getPhotographers() {
 async function getPhotographer(id) {
   const { photographers, medias } = await getPhotographers();
   const photographer = photographers.find((photographer) => photographer.id === id);
-  const photographerMedias = medias.find((media) => media.photographerId === id);
-  return [photographer, photographerMedias];
+  console.log(medias)
+  mediaPhotograph = medias.filter((media) => media.photographerId === id);
+  console.log(mediaPhotograph);
+  // const photographerMedias = medias.find((media) => media.photographerId === id);
+  return [photographer, mediaPhotograph];
 }
 
 
@@ -70,9 +73,11 @@ function photographerDisplay(photographer) {
 
 // display media's datas
 function mediaDisplay(medias) {
-  const mediaModel = mediaFactory(medias);
+  medias.forEach((media) => {
+  const mediaModel = mediaFactory(media);
   const mediaCardDOM = mediaModel.getMediaCardDOM();
   return mediaCardDOM;
+  })
 }
 
 // take the id parameter in url
