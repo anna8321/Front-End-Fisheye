@@ -42,15 +42,16 @@ function mediaFactory(data) {
 
     const media = mediaIsVideo();
 
+
     const mediaSection = document.querySelector('.mediaSection');
     mediaSection.innerHTML += media;
-
 
     return [media];
   }
   // return les variables et les fonctions créées
   return { id, photographerId, title, image, video, likes, date, price, getMediaCardDOM };
 }
+
 
 
 // ****others methods****

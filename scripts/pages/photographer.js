@@ -1,16 +1,3 @@
-// get photographer data
-// let photographerData = [];
-// async function fetchPhotographer() {
-//   let response = await fetch('data/photographers.json')
-//   .then((response) =>
-//   response.json())
-//   .then((promise) => {
-//     photographerData = promise['photographers'];
-//     })
-//     console.log(photographerData);
-//   };
-
-
 // request photographers and medias from json file
 async function getPhotographers() {
   let response = await fetch(`data/photographers.json`)
@@ -36,7 +23,7 @@ async function getPhotographer(id) {
 
 // display photographer's datas
 function photographerDisplay(photographer) {
-  const photographerModel = photographerFactory(photographer)
+  const photographerModel = photographerFactory(photographer);
   const photographerHeader = document.querySelector('.photographer_header');
 
   const profile = document.createElement('div');
@@ -67,6 +54,23 @@ function photographerDisplay(photographer) {
   photographerHeader.appendChild(profile);
   photographerHeader.appendChild(contactBtn);
   photographerHeader.appendChild(avatar);
+
+  // add aside price and likes
+  const mediaSection = document.querySelector('.mediaSection');
+  const aside = document.createElement('aside');
+  aside.classList.add('aside-medias');
+  mediaSection.appendChild(aside);
+
+  const asideLike = document.createElement('div');
+  const numLikes = document.createElement('p');
+  numLikes.textContent = `CHIFFRE❤`;
+  asideLike.appendChild(numLikes);
+  aside.appendChild(asideLike);
+
+  const asidePrice = document.createElement('div');
+  asidePrice.textContent = `${photographerModel.price}€/jour`;
+  aside.appendChild(asidePrice);
+
 }
 
 // display media's datas
